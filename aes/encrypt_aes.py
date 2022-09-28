@@ -1,10 +1,10 @@
 from Crypto.Cipher import AES
-import os
+from Crypto.Random import get_random_bytes
 
 with open("test.txt", "rb") as file:
     data = file.read()
 
-key = os.urandom(16)
+key = get_random_bytes(16)
 print(key)
 
 cipher = AES.new(key, AES.MODE_EAX)
