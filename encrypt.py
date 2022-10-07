@@ -15,16 +15,14 @@ def aes(): # Key can 16/24/32
 def des(): # Key must 8 length
     cipher = DES.new(key_8, DES.MODE_CFB, iv_des)
     c_txt = iv_des + cipher.encrypt(msg)
-    with open("des_enc.txt", "wb") as file_enc:
+    with open("enc.jpg", "wb") as file_enc:
         file_enc.write(c_txt)
 
-def rc4():
-    cipher = ARC4.new(new_key)
+def rc4(new_key_rc4):
+    cipher = ARC4.new(new_key_rc4)
     c_txt = cipher.encrypt(msg)
-    print(new_key)
-    print(c_txt)
-    # with open("rc4_enc.txt", "wb") as file_enc:
-    #     file_enc.write(c_txt)
+    with open("enc.jpg", "wb") as file_enc:
+        file_enc.write(c_txt)
 
 # aes()
 # des()

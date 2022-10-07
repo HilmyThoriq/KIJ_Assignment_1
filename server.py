@@ -6,7 +6,7 @@ print ("Socket created successfully.")
 
 # Defining port and host
 port = 8800
-host = ''
+host = 'localhost'
 
 # binding to the host and port
 sock.bind((host, port))
@@ -24,7 +24,14 @@ while True:
     data = con.recv(1024)
     print(data.decode())
     # Read File in binary
-    aes()
+    # aes()
+    # des()
+
+    key_rc4 = b"super strong key" # Changeable from 5 to 256
+    new_key_rc4 = SHA256.new(key_rc4+nonce).digest()
+    con.send(new_key_rc4)
+    rc4(new_key_rc4)
+    
     file = open("enc.jpg","rb")
     data = file.read()
     # Keep sending data to the client
@@ -35,3 +42,6 @@ while True:
     print('File has been transferred successfully.')
 
     con.close()
+    break
+
+    

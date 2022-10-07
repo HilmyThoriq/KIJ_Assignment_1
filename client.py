@@ -19,10 +19,14 @@ sock.send('A message from the client'.encode())
 file = open('received_test.jpg', 'wb')
 
 # Keep receiving data from the server
+new_key_rc4 = sock.recv(2048)
+
 data = sock.recv(99999)
 
 while(data):
-    file.write(aes(data))
+    # file.write(aes(data))
+    # file.write(des(data))
+    # file.write(rc4(new_key_rc4,data))
     data = sock.recv(99999)
 
 print('File has been received successfully.')
