@@ -1,4 +1,5 @@
 import socket
+from decrypt import *
 
 # Initialize Socket Instance
 sock = socket.socket()
@@ -15,14 +16,14 @@ print('Connection Established.')
 sock.send('A message from the client'.encode())
 
 # Write File in binary
-file = open('test2.txt', 'wb')
+file = open('received_test.jpg', 'wb')
 
 # Keep receiving data from the server
-line = sock.recv(1024)
+data = sock.recv(99999)
 
-while(line):
-    file.write(line)
-    line = sock.recv(1024)
+while(data):
+    file.write(aes(data))
+    data = sock.recv(99999)
 
 print('File has been received successfully.')
 

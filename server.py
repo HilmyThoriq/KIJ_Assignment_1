@@ -1,5 +1,5 @@
 import socket
-
+from encrypt import *
 # Initialize Socket Instance
 sock = socket.socket()
 print ("Socket created successfully.")
@@ -24,14 +24,14 @@ while True:
     data = con.recv(1024)
     print(data.decode())
     # Read File in binary
-    file = open('test.txt', 'rb')
-    line = file.read(1024)
+    aes()
+    file = open("enc.jpg","rb")
+    data = file.read()
     # Keep sending data to the client
-    while(line):
-        con.send(line)
-        line = file.read(1024)
+    while(data):
+        con.send(data)
+        data = file.read()
     
-    file.close()
     print('File has been transferred successfully.')
 
     con.close()

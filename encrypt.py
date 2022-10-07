@@ -1,40 +1,31 @@
 from Crypto.Cipher import AES, DES, ARC4
-from Crypto.Hash import SHA256
 from Crypto import Random
+from var import *
 
-key = Random.get_random_bytes(16)
-iv = Random.get_random_bytes(8)
-print(iv)
-
-with open("text.txt", "rb") as file:
+with open("test_gambar.jpg", "rb") as file:
         msg = file.read()
 
-def aes():
-    cipher = AES.new(key, AES.MODE_CFB, iv)
+def aes(): # Key can 16/24/32
+    cipher = AES.new(key_16, AES.MODE_CFB, iv_aes)
     c_txt = cipher.encrypt(msg)
 
-    with open("aes_enc.txt", "wb") as file_enc:
+    with open("enc.jpg", "wb") as file_enc:
         file_enc.write(c_txt)
 
-def des(): # Key must 16 length
-    cipher = DES.new(key, DES.MODE_CFB, iv)
-    c_txt = iv + cipher.encrypt(msg)
-    print(c_txt)
-
+def des(): # Key must 8 length
+    cipher = DES.new(key_8, DES.MODE_CFB, iv_des)
+    c_txt = iv_des + cipher.encrypt(msg)
     with open("des_enc.txt", "wb") as file_enc:
         file_enc.write(c_txt)
 
 def rc4():
-    nonce = Random.get_random_bytes(16)
-    new_key = SHA256.new(key+nonce).digest()
     cipher = ARC4.new(new_key)
-    print(new_key)
     c_txt = cipher.encrypt(msg)
+    print(new_key)
+    print(c_txt)
+    # with open("rc4_enc.txt", "wb") as file_enc:
+    #     file_enc.write(c_txt)
 
-    with open("rc4_enc.txt", "wb") as file_enc:
-        file_enc.write(c_txt)
-
-
-aes()
+# aes()
 # des()
 # rc4()
