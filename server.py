@@ -1,35 +1,37 @@
 import socket
+from datetime import datetime
 from encrypt import *
-# Initialize Socket Instance
+
+# Initialize Socket 
 sock = socket.socket()
 print ("Socket created successfully.")
 
-# Defining port and host
+# Define host and port
 port = 8800
 host = 'localhost'
 
-# binding to the host and port
+# bind host and port
 sock.bind((host, port))
 
-# Accepts up to 10 connections
+# Accept Connection
 sock.listen(10)
 print('Socket is listening...')
 
 while True:
-    # Establish connection with the clients.
+    # Establish Connection
     con, addr = sock.accept()
     print('Connected with ', addr)
 
     # Get data from the client
     data = con.recv(1024)
     print(data.decode())
-    # Read File in binary
-    # aes()
-    # des()
-
+    
+    start = datetime.now() 
     key_rc4 = b"super strong key" # Changeable from 5 to 256
-    new_key_rc4 = SHA256.new(key_rc4+nonce).digest()
+    new_key_rc4 = SHA256.new(key_rc4+nonce).digest() 
     con.send(new_key_rc4)
+    # aes() 
+    # des()
     rc4(new_key_rc4)
     
     file = open("enc.jpg","rb")
@@ -40,6 +42,7 @@ while True:
         data = file.read()
     
     print('File has been transferred successfully.')
+    print('Duration: {}'.format(datetime.now() - start))
 
     con.close()
     break

@@ -1,4 +1,5 @@
 from Crypto import Random
+from Crypto.Hash import SHA256
 
 nonce = Random.get_random_bytes(16)
 
